@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7f3">
+  <title>Campusly — Student management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Fraunces', 'serif'] },
+          colors: { ink: '#18291f', leaf: '#315c43', mint: '#e9f1e8', paper: '#f5f7f3', citrus: '#f3a95b' }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-paper font-sans text-ink antialiased">
+  <div class="app-shell min-h-screen">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="Campusly home">
+        <span class="brand-mark"><i data-lucide="shapes"></i></span>
+        <span>campusly<span class="brand-period">.</span></span>
+      </a>
+
+      <div class="school-switcher">
+        <div class="school-emblem">N</div>
+        <div class="school-details"><strong>Northwood High</strong><span>West Campus</span></div>
+        <i data-lucide="chevrons-up-down" class="switch-icon"></i>
+      </div>
+
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="nav-list">
+        <a class="nav-item is-active" href="#overview" data-view="Overview"><i data-lucide="layout-dashboard"></i><span>Overview</span></a>
+        <a class="nav-item" href="#students" data-view="Students"><i data-lucide="users-round"></i><span>Students</span><span class="nav-count">248</span></a>
+        <a class="nav-item" href="#attendance" data-view="Attendance"><i data-lucide="calendar-check-2"></i><span>Attendance</span></a>
+        <a class="nav-item" href="#courses" data-view="Courses"><i data-lucide="notebook-tabs"></i><span>Courses</span></a>
+        <a class="nav-item" href="#reports" data-view="Reports"><i data-lucide="chart-no-axes-column-increasing"></i><span>Reports</span></a>
+      </nav>
+
+      <p class="nav-label tools-label">MANAGE</p>
+      <nav class="nav-list">
+        <a class="nav-item" href="#calendar" data-view="Calendar"><i data-lucide="calendar-days"></i><span>Calendar</span></a>
+        <a class="nav-item" href="#messages" data-view="Messages"><i data-lucide="messages-square"></i><span>Messages</span><span class="unread-dot"></span></a>
+        <a class="nav-item" href="#settings" data-view="Settings"><i data-lucide="settings-2"></i><span>Settings</span></a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <span class="help-icon"><i data-lucide="life-buoy"></i></span>
+          <div><strong>Need a hand?</strong><span>Visit our help center</span></div>
+          <i data-lucide="arrow-up-right" class="help-arrow"></i>
+        </div>
+        <button class="profile-button" type="button">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=96&q=80" alt="" class="profile-photo">
+          <span class="profile-copy"><strong>Olivia Rhye</strong><span>School administrator</span></span>
+          <i data-lucide="ellipsis" class="profile-menu-icon"></i>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-area" id="mainArea">
+      <header class="topbar">
+        <button class="icon-button mobile-menu-button" id="mobileMenuButton" aria-label="Open navigation"><i data-lucide="menu"></i></button>
+        <div class="breadcrumb"><span>Workspace</span><i data-lucide="chevron-right"></i><strong id="currentView">Overview</strong></div>
+        <div class="topbar-actions">
+          <span class="term-chip"><span></span> 2024–2025 · Spring</span>
+          <button class="icon-button notification-button" aria-label="Notifications"><i data-lucide="bell"></i><span class="notification-dot"></span></button>
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=96&q=80" alt="Olivia Rhye" class="topbar-avatar">
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div id="overviewView">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> MONDAY, MAY 19, 2025</p>
+            <h1>Good morning, Olivia <span class="wave">✳</span></h1>
+            <p class="welcome-subtitle">Here’s what’s happening across your school today.</p>
+          </div>
+          <button class="primary-button" id="addStudentButton"><i data-lucide="plus"></i><span>Add student</span></button>
+        </section>
+
+        <section class="summary-grid" aria-label="School summary">
+          <article class="summary-card">
+            <div class="summary-topline"><span>Total students</span><span class="summary-icon green"><i data-lucide="users-round"></i></span></div>
+            <div class="summary-value-row"><strong id="totalStudents">248</strong><span class="change-pill positive"><i data-lucide="arrow-up-right"></i> 8.2%</span></div>
+            <p class="summary-note">Compared to last semester</p>
+            <div class="mini-bars" aria-hidden="true"><i style="height:38%"></i><i style="height:56%"></i><i style="height:48%"></i><i style="height:73%"></i><i style="height:62%"></i><i style="height:84%"></i><i style="height:68%"></i><i style="height:100%"></i></div>
+          </article>
+          <article class="summary-card">
+            <div class="summary-topline"><span>Present today</span><span class="summary-icon orange"><i data-lucide="user-check"></i></span></div>
+            <div class="summary-value-row"><strong>231</strong><span class="change-pill positive"><i data-lucide="arrow-up-right"></i> 2.4%</span></div>
+            <p class="summary-note">93.1% attendance rate</p>
+            <div class="attendance-track"><span style="width:93.1%"></span></div>
+            <p class="track-caption"><span>Daily average</span><strong>89.4%</strong></p>
+          </article>
+          <article class="summary-card">
+            <div class="summary-topline"><span>Active courses</span><span class="summary-icon lavender"><i data-lucide="book-open-check"></i></span></div>
+            <div class="summary-value-row"><strong>18</strong><span class="change-pill neutral">This term</span></div>
+            <p class="summary-note">Across 6 departments</p>
+            <div class="course-dots" aria-label="Six active departments"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </article>
+          <article class="summary-card">
+            <div class="summary-topline"><span>Need attention</span><span class="summary-icon rose"><i data-lucide="triangle-alert"></i></span></div>
+            <div class="summary-value-row"><strong>7</strong><span class="change-pill warning">Review needed</span></div>
+            <p class="summary-note">Students below 80% attendance</p>
+            <a href="#students" class="text-link">View students <i data-lucide="arrow-right"></i></a>
+          </article>
+        </section>
+
+        <section class="insights-grid" aria-label="School insights">
+          <article class="panel enrollment-panel">
+            <div class="panel-heading">
+              <div><h2>Enrollment overview</h2><p>Student enrollment across this academic year</p></div>
+              <label class="select-wrap"><span class="sr-only">Select enrollment period</span><select id="chartPeriod"><option value="year">This year</option><option value="term">This term</option></select><i data-lucide="chevron-down"></i></label>
+            </div>
+            <div class="chart-legend"><span><i class="legend-dot current"></i> This year</span><span><i class="legend-dot previous"></i> Last year</span></div>
+            <div class="chart-wrap">
+              <div class="chart-y-labels"><span>300</span><span>225</span><span>150</span><span>75</span><span>0</span></div>
+              <div class="chart-plot">
+                <div class="chart-grid-lines"><i></i><i></i><i></i><i></i><i></i></div>
+                <svg viewBox="0 0 660 180" preserveAspectRatio="none" role="img" aria-label="Enrollment increased steadily from September to May">
+                  <defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7db28a" stop-opacity=".24"/><stop offset="100%" stop-color="#7db28a" stop-opacity="0"/></linearGradient></defs>
+                  <path class="chart-area" d="M0 143 C38 137 43 119 82 123 S128 132 165 108 S211 115 247 91 S293 99 330 76 S376 91 412 65 S458 75 495 53 S541 66 577 39 S623 48 660 24 V180 H0Z"/>
+                  <path class="chart-line previous-line" d="M0 152 C37 145 43 137 82 141 S128 132 165 126 S211 137 247 115 S293 125 330 105 S376 119 412 93 S458 103 495 83 S541 91 577 72 S623 76 660 63"/>
+                  <path class="chart-line current-line" d="M0 143 C38 137 43 119 82 123 S128 132 165 108 S211 115 247 91 S293 99 330 76 S376 91 412 65 S458 75 495 53 S541 66 577 39 S623 48 660 24"/>
+                  <circle cx="660" cy="24" r="5" class="chart-endpoint"/>
+                </svg>
+                <div class="chart-x-labels"><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel attendance-panel">
+            <div class="panel-heading"><div><h2>Today’s attendance</h2><p>Monday, May 19</p></div><button class="more-button" aria-label="Attendance options"><i data-lucide="ellipsis"></i></button></div>
+            <div class="attendance-chart-area">
+              <div class="donut-chart"><div class="donut-center"><strong>93<span>%</span></strong><small>present</small></div></div>
+              <div class="attendance-legend">
+                <div><span><i class="legend-dot present-dot"></i>Present</span><strong>231</strong></div>
+                <div><span><i class="legend-dot absent-dot"></i>Absent</span><strong>11</strong></div>
+                <div><span><i class="legend-dot late-dot"></i>Late</span><strong>6</strong></div>
+              </div>
+            </div>
+            <div class="attendance-footer"><span><i data-lucide="clock-3"></i> Updated 10:42 AM</span><a href="#attendance">Full report <i data-lucide="arrow-up-right"></i></a></div>
+          </article>
+        </section>
+
+        <section class="panel students-panel" id="students">
+          <div class="students-heading">
+            <div><div class="section-title-row"><h2>Recent students</h2><span class="table-count" id="studentCount">248 students</span></div><p>Keep track of your students and their progress.</p></div>
+            <a class="view-all-link" href="#students">View all students <i data-lucide="arrow-right"></i></a>
+          </div>
+          <div class="table-toolbar">
+            <label class="search-box"><i data-lucide="search"></i><input id="studentSearch" type="search" placeholder="Search students..." autocomplete="off"><kbd>⌘ K</kbd></label>
+            <div class="table-controls">
+              <label class="filter-select"><i data-lucide="list-filter"></i><select id="statusFilter" aria-label="Filter by status"><option value="all">All students</option><option value="Active">Active</option><option value="On leave">On leave</option></select><i data-lucide="chevron-down"></i></label>
+              <button class="export-button" id="exportButton"><i data-lucide="download"></i><span>Export</span></button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th><label class="checkbox-wrap"><input id="selectAll" type="checkbox" aria-label="Select all students"><span></span></label></th><th>STUDENT</th><th>ID</th><th>COURSE</th><th>YEAR</th><th>ATTENDANCE</th><th>STATUS</th><th><span class="sr-only">Actions</span></th></tr></thead>
+              <tbody id="studentRows"></tbody>
+            </table>
+            <div class="empty-state hidden" id="emptyState"><span><i data-lucide="search-x"></i></span><strong>No students found</strong><p>Try a different name or adjust your filters.</p></div>
+          </div>
+          <div class="table-footer"><span id="resultSummary">Showing 5 of 248 students</span><div class="pagination"><button class="page-button" aria-label="Previous page" disabled><i data-lucide="chevron-left"></i></button><button class="page-number is-current" aria-label="Page 1">1</button><button class="page-number" aria-label="Page 2">2</button><button class="page-number" aria-label="Page 3">3</button><span class="page-ellipsis">…</span><button class="page-number" aria-label="Page 50">50</button><button class="page-button" aria-label="Next page"><i data-lucide="chevron-right"></i></button></div></div>
+        </section>
+
+        <footer class="page-footer"><span>© 2025 Campusly</span><span>Made for better school days <i data-lucide="heart"></i></span></footer>
+        </div>
+        <div id="sectionView" class="hidden"></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="studentModal" role="presentation">
+    <section class="student-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-heading"><div><span class="modal-kicker">STUDENT RECORD</span><h2 id="modalTitle">Add a student</h2><p>Enter their details to create a new student profile.</p></div><button class="icon-button" id="closeModalButton" aria-label="Close dialog"><i data-lucide="x"></i></button></div>
+      <form id="studentForm">
+        <div class="form-grid">
+          <label class="form-field full-field"><span>Full name</span><input name="name" required placeholder="e.g. Jamie Rivera" autocomplete="name"></label>
+          <label class="form-field full-field"><span>Email address</span><input name="email" required type="email" placeholder="jamie@northwood.edu" autocomplete="email"></label>
+          <label class="form-field"><span>Course</span><select name="course" required><option value="" disabled selected>Select course</option><option>Biology</option><option>Computer Science</option><option>English Literature</option><option>Mathematics</option><option>Psychology</option><option>Visual Arts</option></select></label>
+          <label class="form-field"><span>Year</span><select name="year" required><option value="" disabled selected>Select year</option><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option></select></label>
+        </div>
+        <div class="modal-actions"><button type="button" class="cancel-button" id="cancelModalButton">Cancel</button><button type="submit" class="primary-button"><i data-lucide="user-plus"></i><span>Create student</span></button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><i data-lucide="circle-check"></i><span id="toastMessage">Done</span></div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="app.js"></script>
+</body>
+</html>
